@@ -500,7 +500,6 @@ class YouTubeAPI:
                 ydl_opts = {
                     'format': 'best[height<=720]/best',
                     'outtmpl': filepath,
-                    'cookiefile': cookie_txt_file(),
                     'quiet': True,
                     'no_warnings': True,
                     'retries': 20,
@@ -515,8 +514,9 @@ class YouTubeAPI:
                     'http_chunk_size': 1048576,
                     'continuedl': True,
                     'force_ipv4': True,
-                    'age_limit': None,
-                    'extractor_args': {'youtube': {'player_client': ['android', 'web', 'ios']}},
+                    'age_limit': 99,
+                    'extractor_args': {'youtube': {'player_client': ['web']}},
+                    'youtube_include_dash_manifest': False,
                 }
                 
                 loop = asyncio.get_running_loop()
@@ -544,7 +544,6 @@ class YouTubeAPI:
                 ydl_opts = {
                     'format': 'best[height<=720]/best',
                     'outtmpl': filepath,
-                    'cookiefile': cookie_txt_file(),
                     'quiet': True,
                     'no_warnings': True,
                     'retries': 20,
@@ -559,8 +558,9 @@ class YouTubeAPI:
                     'http_chunk_size': 1048576,
                     'continuedl': True,
                     'force_ipv4': True,
-                    'age_limit': None,
-                    'extractor_args': {'youtube': {'player_client': ['android', 'web', 'ios']}},
+                    'age_limit': 99,
+                    'extractor_args': {'youtube': {'player_client': ['web']}},
+                    'youtube_include_dash_manifest': False,
                 }
                 
                 loop = asyncio.get_running_loop()
@@ -593,7 +593,6 @@ class YouTubeAPI:
                         'preferredcodec': 'mp3',
                         'preferredquality': '192',
                     }],
-                    'cookiefile': cookie_txt_file(),
                     'quiet': True,
                     'no_warnings': True,
                     'retries': 20,
@@ -609,7 +608,7 @@ class YouTubeAPI:
                     'continuedl': True,
                     'force_ipv4': True,
                     'age_limit': 99,
-                    'extractor_args': {'youtube': {'player_client': ['android', 'web', 'ios', 'tv']}},
+                    'extractor_args': {'youtube': {'player_client': ['web']}},
                     'youtube_include_dash_manifest': False,
                 }
                 
