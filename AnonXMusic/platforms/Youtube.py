@@ -430,6 +430,7 @@ class YouTubeAPI:
                 # First try to get available formats for debugging
                 try:
                     info_opts = {
+                        'cookiefile': cookie_txt_file(),
                         'quiet': True,
                         'no_warnings': True,
                         'extract_flat': False,
@@ -455,6 +456,7 @@ class YouTubeAPI:
                         'preferredcodec': 'mp3',
                         'preferredquality': '192',
                     }],
+                    'cookiefile': cookie_txt_file(),
                     'quiet': True,
                     'no_warnings': True,
                     'retries': 20,
@@ -500,6 +502,7 @@ class YouTubeAPI:
                 ydl_opts = {
                     'format': 'best[height<=720]/best',
                     'outtmpl': filepath,
+                    'cookiefile': cookie_txt_file(),
                     'quiet': True,
                     'no_warnings': True,
                     'retries': 20,
@@ -544,6 +547,7 @@ class YouTubeAPI:
                 ydl_opts = {
                     'format': 'best[height<=720]/best',
                     'outtmpl': filepath,
+                    'cookiefile': cookie_txt_file(),
                     'quiet': True,
                     'no_warnings': True,
                     'retries': 20,
@@ -593,6 +597,7 @@ class YouTubeAPI:
                         'preferredcodec': 'mp3',
                         'preferredquality': '192',
                     }],
+                    'cookiefile': cookie_txt_file(),
                     'quiet': True,
                     'no_warnings': True,
                     'retries': 20,
