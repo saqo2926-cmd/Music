@@ -366,8 +366,6 @@ CACHE_DIR.mkdir(exist_ok=True)
 
 W, H = 1320, 760
 BG_BLUR = 22
-# make bot avatar a bit larger
-ICON_SIZE = 120
 # increase the circular artwork size for a more prominent thumbnail
 CIRCLE_SIZE = 560
 
@@ -375,29 +373,6 @@ WHITE = (255, 255, 255, 255)
 SHADOW = (0, 0, 0, 100)
 TEXT_SHADOW = (0, 0, 0, 130)
 STROKE_COLOR = (0, 0, 0, 255)
-
-BOT_AVATAR_CACHE = None
-
-async def _load_bot_avatar():
-    global BOT_AVATAR_CACHE
-    if BOT_AVATAR_CACHE is not None:
-        return BOT_AVATAR_CACHE
-    try:
-        from AnonXMusic import app
-        photos = [p async for p in app.get_chat_photos("me", limit=1)]
-        if photos:
-            file = await app.download_media(photos[0].file_id, in_memory=True)
-            data = file.getvalue()
-            img = Image.open(BytesIO(data)).convert("RGBA")
-            img = img.resize((ICON_SIZE, ICON_SIZE), Image.LANCZOS)
-            mask = Image.new("L", (ICON_SIZE, ICON_SIZE), 0)
-            draw = ImageDraw.Draw(mask)
-            draw.ellipse((0, 0, ICON_SIZE, ICON_SIZE), fill=255)
-            img.putalpha(mask)
-            BOT_AVATAR_CACHE = img
-            return img
-    except Exception as e:
-        print(f"[Avatar Error] {e}")
     return None
 
 def resize_fit(img, w, h):
@@ -713,11 +688,6 @@ async def get_thumb(videoid: str, queue_pos: int = 1, title_style: str = 'bold')
         shadow = shadow.filter(ImageFilter.GaussianBlur(35))
         canvas.paste(shadow, (x - 50, y - 50), shadow)
         canvas.paste(circle_canvas, (x, y), circle_canvas)
-
-        avatar = await _load_bot_avatar()
-        if avatar:
-            ax, ay = 28, 16
-            canvas.paste(avatar, (ax, ay), avatar)
 
         info_x = x + CIRCLE_SIZE + 80
         max_w = W - info_x - 70
