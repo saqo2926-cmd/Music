@@ -40,8 +40,11 @@ from config import BANNED_USERS, OWNER_ID
 @app.on_message(
     filters.command(["settings", "setting"]) & filters.group & ~BANNED_USERS
 )
-@language
-async def settings_mar(client, message: Message, _):
+async def settings_mar(client, message: Message):
+    from AnonXMusic.utils.database import get_lang
+    lang = await get_lang(message.chat.id)
+    from AnonXMusic.utils.lang import get_string
+    _ = get_string(lang)
     buttons = setting_markup(_)
     await message.reply_text(
         _["setting_1"].format(app.mention, message.chat.id, message.chat.title),
@@ -50,8 +53,11 @@ async def settings_mar(client, message: Message, _):
 
 
 @app.on_callback_query(filters.regex("settings_helper") & ~BANNED_USERS)
-@languageCB
-async def settings_cb(client, CallbackQuery, _):
+async def settings_cb(client, CallbackQuery):
+    from AnonXMusic.utils.database import get_lang
+    lang = await get_lang(CallbackQuery.message.chat.id)
+    from strings import get_string
+    _ = get_string(lang)
     try:
         await CallbackQuery.answer(_["set_cb_5"])
     except:
@@ -68,8 +74,11 @@ async def settings_cb(client, CallbackQuery, _):
 
 
 @app.on_callback_query(filters.regex("settingsback_helper") & ~BANNED_USERS)
-@languageCB
-async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
+async def settings_back_markup(client, CallbackQuery: CallbackQuery):
+    from AnonXMusic.utils.database import get_lang
+    lang = await get_lang(CallbackQuery.message.chat.id)
+    from strings import get_string
+    _ = get_string(lang)
     try:
         await CallbackQuery.answer()
     except:
@@ -95,8 +104,11 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
     )
     & ~BANNED_USERS
 )
-@languageCB
-async def without_Admin_rights(client, CallbackQuery, _):
+async def without_Admin_rights(client, CallbackQuery):
+    from AnonXMusic.utils.database import get_lang
+    lang = await get_lang(CallbackQuery.message.chat.id)
+    from strings import get_string
+    _ = get_string(lang)
     command = CallbackQuery.matches[0].group(1)
     if command == "SEARCHANSWER":
         try:

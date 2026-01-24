@@ -12,7 +12,7 @@ def setting_markup(_):
             InlineKeyboardButton(text=_["ST_B_2"], callback_data="PM"),
         ],
         [
-            InlineKeyboardButton(text=_["ST_B_4"], callback_data="VM"),
+            InlineKeyboardButton(text=_["ST_B_3"], callback_data="VM"),
         ],
         [
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
