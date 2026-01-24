@@ -705,11 +705,11 @@ async def get_thumb(videoid: str, queue_pos: int = 1, title_style: str = 'bold')
         v_y = t_y + total_h + 8
         draw_text_shadow(draw, (v_x, v_y), views_text, views_font, fill=(230,230,230,230), stroke=2)
 
-        water = "Powered by Armed Music"
+        water = "ArmedMusic"
         water_font = load_font_with_fallback(28, style='italic')
         w_w = water_font.getlength(water)
         wx = W - w_w - 30
-        wy = H - water_font.getbbox(water)[3] - 5
+        wy = 10  # Top right corner
         draw_text_shadow(draw, (wx, wy), water, water_font, fill=(210,210,210,190), stroke=2)
 
         canvas = canvas.convert("RGB")
