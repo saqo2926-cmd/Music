@@ -438,21 +438,32 @@ class YouTubeAPI:
                             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                             'Accept-Language': 'en-us,en;q=0.5',
                             'Sec-Fetch-Mode': 'navigate',
+                            'Sec-Fetch-Dest': 'document',
+                            'Sec-Fetch-Site': 'none',
+                            'Sec-Fetch-User': '?1',
+                            'Upgrade-Insecure-Requests': '1',
                         },
                         'extractor_args': {
                             'youtube': {
-                                'player_client': ['android', 'web'],
-                                'player_skip': ['js', 'configs', 'webpage'],
+                                'player_client': ['ios', 'android', 'web'],
+                                'player_skip': ['js', 'webpage'],
+                                'innertube_client': 'ios',
                             }
                         },
                     }
                     with yt_dlp.YoutubeDL(info_opts) as ydl:
                         info = ydl.extract_info(f'https://www.youtube.com/watch?v={vid_id}', download=False)
                         formats = info.get('formats', [])
-                        audio_formats = [f for f in formats if f.get('acodec') != 'none']
-                        logger.info(f"Available audio formats for {vid_id}: {len(audio_formats)} formats")
+                        audio_formats = [f for f in formats if f.get('acodec') != 'none' and f.get('vcodec') == 'none']
+                        logger.info(f"Available pure audio formats for {vid_id}: {len(audio_formats)} formats")
                         if audio_formats:
-                            logger.info(f"First audio format: {audio_formats[0]}")
+                            logger.info(f"First pure audio format: {audio_formats[0]}")
+                        else:
+                            # Fallback to audio+video formats
+                            audio_formats = [f for f in formats if f.get('acodec') != 'none']
+                            logger.info(f"Available audio+video formats for {vid_id}: {len(audio_formats)} formats")
+                            if audio_formats:
+                                logger.info(f"First audio+video format: {audio_formats[0]}")
                 except Exception as info_e:
                     logger.error(f"Failed to get info for {vid_id}: {str(info_e)}")
                 
@@ -476,11 +487,16 @@ class YouTubeAPI:
                         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                         'Accept-Language': 'en-us,en;q=0.5',
                         'Sec-Fetch-Mode': 'navigate',
+                        'Sec-Fetch-Dest': 'document',
+                        'Sec-Fetch-Site': 'none',
+                        'Sec-Fetch-User': '?1',
+                        'Upgrade-Insecure-Requests': '1',
                     },
                     'extractor_args': {
                         'youtube': {
-                            'player_client': ['android', 'web'],
-                            'player_skip': ['js', 'configs', 'webpage'],
+                            'player_client': ['ios', 'android', 'web'],
+                            'player_skip': ['js', 'webpage'],
+                            'innertube_client': 'ios',
                         }
                     },
                 }
@@ -535,11 +551,16 @@ class YouTubeAPI:
                         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                         'Accept-Language': 'en-us,en;q=0.5',
                         'Sec-Fetch-Mode': 'navigate',
+                        'Sec-Fetch-Dest': 'document',
+                        'Sec-Fetch-Site': 'none',
+                        'Sec-Fetch-User': '?1',
+                        'Upgrade-Insecure-Requests': '1',
                     },
                     'extractor_args': {
                         'youtube': {
-                            'player_client': ['android', 'web'],
-                            'player_skip': ['js', 'configs', 'webpage'],
+                            'player_client': ['ios', 'android', 'web'],
+                            'player_skip': ['js', 'webpage'],
+                            'innertube_client': 'ios',
                         }
                     },
                 }
@@ -582,11 +603,16 @@ class YouTubeAPI:
                         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                         'Accept-Language': 'en-us,en;q=0.5',
                         'Sec-Fetch-Mode': 'navigate',
+                        'Sec-Fetch-Dest': 'document',
+                        'Sec-Fetch-Site': 'none',
+                        'Sec-Fetch-User': '?1',
+                        'Upgrade-Insecure-Requests': '1',
                     },
                     'extractor_args': {
                         'youtube': {
-                            'player_client': ['android', 'web'],
-                            'player_skip': ['js', 'configs', 'webpage'],
+                            'player_client': ['ios', 'android', 'web'],
+                            'player_skip': ['js', 'webpage'],
+                            'innertube_client': 'ios',
                         }
                     },
                 }
@@ -636,11 +662,16 @@ class YouTubeAPI:
                         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                         'Accept-Language': 'en-us,en;q=0.5',
                         'Sec-Fetch-Mode': 'navigate',
+                        'Sec-Fetch-Dest': 'document',
+                        'Sec-Fetch-Site': 'none',
+                        'Sec-Fetch-User': '?1',
+                        'Upgrade-Insecure-Requests': '1',
                     },
                     'extractor_args': {
                         'youtube': {
-                            'player_client': ['android', 'web'],
-                            'player_skip': ['js', 'configs', 'webpage'],
+                            'player_client': ['ios', 'android', 'web'],
+                            'player_skip': ['js', 'webpage'],
+                            'innertube_client': 'ios',
                         }
                     },
                 }
