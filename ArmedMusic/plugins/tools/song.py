@@ -66,6 +66,13 @@ async def song_download(client, message: Message):
             'quiet': True,
             'no_warnings': True,
             'extract_flat': False,
+            'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'http_headers': {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'en-us,en;q=0.5',
+                'Sec-Fetch-Mode': 'navigate',
+            },
         }
         if YOUTUBE_PROXY:
             ydl_opts['proxy'] = YOUTUBE_PROXY
