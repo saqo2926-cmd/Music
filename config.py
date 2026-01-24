@@ -6,57 +6,40 @@ from pyrogram import filters
 
 load_dotenv()
 
-# Get this value from my.telegram.org/apps
 API_ID = int(getenv("API_ID", "27638882"))
 API_HASH = getenv("API_HASH", "f745cdd5ddb46cf841d6990048f52935")
 
-# Get your token from @BotFather on Telegram.
 BOT_TOKEN = getenv("BOT_TOKEN", "7598831470:AAGWu2nDC89r3EyZCpNoC1KW9r-9ylNkcT8")
 
-# Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb://mongo:bBlGbsiXVMUFsiXTYOEXuGAnEHfCbNyn@mongodb.railway.internal:27017/armedmusic?authSource=admin")
 
-# Vars For API End Pont.
-YTPROXY_URL = getenv("YTPROXY_URL", None) ## xBit Music Endpoint. Set to None to disable AI features
-YOUTUBE_PROXY = getenv("YOUTUBE_PROXY", None) ## Proxy for YouTube downloads, e.g. http://proxy_ip:port
-YT_API_KEY = getenv("YT_API_KEY" , "AIzaSyAyFW-9snpxGwFa5cu-p81jjE8Fg1h_6rk" ) ## Your API key like: xbit_10000000xx0233 Get from  https://t.me/tgmusic_apibot
+YTPROXY_URL = getenv("YTPROXY_URL", None)
+YOUTUBE_PROXY = getenv("YOUTUBE_PROXY", None)
+YT_API_KEY = getenv("YT_API_KEY" , "AIzaSyAyFW-9snpxGwFa5cu-p81jjE8Fg1h_6rk" )
 
-## Other vaes
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 300))
 
-# Chat id of a group for logging bot's activities
 LOGGER_ID = int(getenv("LOGGER_ID", "-1003142281080"))
 
-# Get this value from @FallenxBot on Telegram by /id
 OWNER_ID = int(getenv("OWNER_ID", "7976004718"))
 
-# Set this to True if you want the assistant to automatically leave chats after an interval
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
 ASSISTANT_LEAVE_TIME = int(getenv("ASSISTANT_LEAVE_TIME",  5400))
 
-
-# Get this credentials from https://developer.spotify.com/dashboard
 SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "1c21247d714244ddbb09925dac565aed")
 SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "709e1a2969664491b58200860623ef19")
 
-
-# Maximum limit for fetching playlist's track from youtube, spotify, apple links.
 PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", 25))
 
-
-# Telegram audio and video file size limit (in bytes)
 TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", 204857600))
 TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 2073741824))
-# Checkout https://www.gbmb.org/mb-to-bytes for converting mb to bytes
 
 PRIVATE_BOT_MODE_MEM = int(getenv("PRIVATE_BOT_MODE_MEM", 1))
 
 
-CACHE_DURATION = int(getenv("CACHE_DURATION" , "86400"))  #60*60*24
-CACHE_SLEEP = int(getenv("CACHE_SLEEP" , "3600"))   #60*60
+CACHE_DURATION = int(getenv("CACHE_DURATION" , "86400"))
+CACHE_SLEEP = int(getenv("CACHE_SLEEP" , "3600"))
 
-
-# Get your pyrogram v2 session from @StringFatherBot on Telegram
 STRING1 = getenv("STRING_SESSION", "AgGlvGIAOTbpAfHjFV0qNLBBliSZuE5EPB0sq8AyRKZRjEa6Cn1O0VtDMj2qC0Ugi35lmM1U45sUn9dEsN9b6n0EuHoNUAllXmHHzrd_hUiZ1MPWahbZuzJMA1qdeGgZkb4bFaCrTdlglNAzZfUT4V-uBW11QK9svP7fDumkTzTn0Di6PM_GeprgZHM2v2xEHdQ9vItN3wCviLh9jS1U_kXqnCYxrPoeK_QErlLB5iRM5Q_jpjUKg6eAO-h-mA5tLQ2Kp51dC7_wRKRdfcKMrJElrAdOELd4u0My3hwZOWxTYHA7CWuv9UIp7oz6q83YLxA8w3KqgM5gltss1LYRb4TxzqEnkgAAAAHya_vDAA")
 STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
@@ -94,7 +77,7 @@ SPOTIFY_ARTIST_IMG_URL = "https://image2url.com/r2/default/images/1768793789039-
 SPOTIFY_ALBUM_IMG_URL = "https://image2url.com/r2/default/images/1768793789039-2d4017a9-b0a3-43ec-837c-82855012c3fb.jpg"
 SPOTIFY_PLAYLIST_IMG_URL = "https://image2url.com/r2/default/images/1768793789039-2d4017a9-b0a3-43ec-837c-82855012c3fb.jpg"
 
-DEFAULT_THUMB = START_IMG_URL[0]  # Default thumbnail for streams
+DEFAULT_THUMB = START_IMG_URL[0]
 
 
 
