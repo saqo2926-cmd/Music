@@ -12,7 +12,7 @@ from ArmedMusic import app
 DEV = [7976004718]
 
 async def aexec(code, client, message):
-    exec('async def __aexec(client, message): ' + ''.join((f'\n {a}' for a in code.split('\n'))))
+    exec('async def __aexec(client, message): ' + ''.join((f"\n {a}" for a in code.split('\n'))))
     return await locals()['__aexec'](client, message)
 
 async def edit_or_reply(msg: Message, **kwargs):
@@ -58,13 +58,13 @@ async def executor(client, message: Message):
         with open(filename, 'w+', encoding='utf8') as out_file:
             out_file.write(str(evaluation))
         t2 = time()
-        keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text='⏳', callback_data=f'runtime {t2 - t1} Seconds')]])
-        await message.reply_document(document=filename, caption=f'<b>⥤ ᴇᴠᴀʟ :</b>\n<code>{cmd[0:980]}</code>\n\n<b>⥤ ʀᴇsᴜʟᴛ :</b>\nAttached Document', quote=False, reply_markup=keyboard)
+        keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text='⏳', callback_data=f"runtime {t2 - t1} Seconds")]])
+        await message.reply_document(document=filename, caption=f"<b>⥤ ᴇᴠᴀʟ :</b>\n<code>{cmd[0:980]}</code>\n\n<b>⥤ ʀᴇsᴜʟᴛ :</b>\nAttached Document", quote=False, reply_markup=keyboard)
         await message.delete()
         os.remove(filename)
     else:
         t2 = time()
-        keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text='⏳', callback_data=f'runtime {round(t2 - t1, 3)} Seconds'), InlineKeyboardButton(text='🗑', callback_data=f'forceclose abc|{message.from_user.id}')]])
+        keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(text='⏳', callback_data=f"runtime {round(t2 - t1, 3)} Seconds"), InlineKeyboardButton(text='🗑', callback_data=f"forceclose abc|{message.from_user.id}")]])
         await edit_or_reply(message, text=final_output, reply_markup=keyboard)
 
 @app.on_callback_query(filters.regex('runtime'))
@@ -102,8 +102,8 @@ async def shellrunner(_, message: Message):
             try:
                 process = subprocess.Popen(shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             except Exception as err:
-                await edit_or_reply(message, text=f'<b>ERROR :</b>\n<pre>{err}</pre>')
-            output += f'<b>{code}</b>\n'
+                await edit_or_reply(message, text=f"<b>ERROR :</b>\n<pre>{err}</pre>")
+            output += f"<b>{code}</b>\n"
             output += process.stdout.read()[:-1].decode('utf-8')
             output += '\n'
     else:
@@ -116,7 +116,7 @@ async def shellrunner(_, message: Message):
             print(err)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             errors = traceback.format_exception(etype=exc_type, value=exc_obj, tb=exc_tb)
-            return await edit_or_reply(message, text=f'<b>ERROR :</b>\n<pre>{''.join(errors)}</pre>')
+            return await edit_or_reply(message, text=f"<b>ERROR :</b>\n<pre>{''.join(errors)}</pre>")
         output = process.stdout.read()[:-1].decode('utf-8')
     if str(output) == '\n':
         output = None
@@ -126,7 +126,7 @@ async def shellrunner(_, message: Message):
                 file.write(output)
             await app.send_document(message.chat.id, 'output.txt', reply_to_message_id=message.id, caption='<code>Output</code>')
             return os.remove('output.txt')
-        await edit_or_reply(message, text=f'<b>OUTPUT :</b>\n<pre>{output}</pre>')
+        await edit_or_reply(message, text=f"<b>OUTPUT :</b>\n<pre>{output}</pre>")
     else:
         await edit_or_reply(message, text='<b>OUTPUT :</b>\n<code>None</code>')
     await message.stop_propagation()
