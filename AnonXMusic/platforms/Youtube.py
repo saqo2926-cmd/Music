@@ -452,8 +452,8 @@ class YouTubeAPI:
                         'preferredcodec': 'mp3',
                         'preferredquality': '192',
                     }],
-                    'quiet': True,
-                    'no_warnings': True,
+                    'quiet': False,
+                    'no_warnings': False,
                     'retries': 10,
                     'fragment_retries': 10,
                     'skip_unavailable_fragments': True,
@@ -464,12 +464,21 @@ class YouTubeAPI:
                 
                 loop = asyncio.get_running_loop()
                 with ThreadPoolExecutor() as executor:
-                    await loop.run_in_executor(executor, lambda: yt_dlp.YoutubeDL(ydl_opts).download([f'https://www.youtube.com/watch?v={vid_id}']))
+                    result = await loop.run_in_executor(executor, lambda: yt_dlp.YoutubeDL(ydl_opts).download([f'https://www.youtube.com/watch?v={vid_id}']))
+                    logger.info(f"yt_dlp download result for {vid_id}: {result}")
                 
+                logger.info(f"Checking for file at {filepath}")
                 if os.path.exists(filepath):
+                    logger.info(f"File found: {filepath}")
                     return filepath
                 else:
-                    logger.error("Download failed, file not found")
+                    logger.error(f"Download failed, file not found at {filepath}")
+                    # List files in downloads directory for debugging
+                    try:
+                        files = os.listdir("downloads")
+                        logger.info(f"Files in downloads: {files}")
+                    except Exception as list_e:
+                        logger.error(f"Could not list downloads: {str(list_e)}")
                     return None
                     
             except Exception as e:
