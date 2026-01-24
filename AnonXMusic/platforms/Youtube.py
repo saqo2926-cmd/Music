@@ -471,7 +471,7 @@ class YouTubeAPI:
                 
                 # Try different configurations in order of preference
                 ydl_opts_list = [
-                    # Configuration 1: Advanced anti-detection
+                    # Configuration 1: Advanced anti-detection with iOS client
                     {
                         'format': 'bestaudio[ext=m4a]/bestaudio[acodec=mp4a]/140/bestaudio/best[ext=mp4]/best',
                         'outtmpl': os.path.join("downloads", f"{vid_id}"),
@@ -486,7 +486,7 @@ class YouTubeAPI:
                         'fragment_retries': 5,
                         'skip_unavailable_fragments': True,
                         'http_headers': {
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
                             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                             'Accept-Language': 'en-us,en;q=0.5',
                             'Sec-Fetch-Mode': 'navigate',
@@ -503,9 +503,71 @@ class YouTubeAPI:
                             }
                         },
                     },
-                    # Configuration 2: Simpler anti-detection
+                    # Configuration 2: Android client with enhanced headers
                     {
                         'format': 'bestaudio[ext=m4a]/bestaudio[acodec=mp4a]/140/bestaudio/best[ext=mp4]/best',
+                        'outtmpl': os.path.join("downloads", f"{vid_id}"),
+                        'postprocessors': [{
+                            'key': 'FFmpegExtractAudio',
+                            'preferredcodec': 'mp3',
+                            'preferredquality': '192',
+                        }],
+                        'quiet': True,
+                        'no_warnings': True,
+                        'retries': 5,
+                        'fragment_retries': 5,
+                        'skip_unavailable_fragments': True,
+                        'http_headers': {
+                            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36',
+                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                            'Accept-Language': 'en-us,en;q=0.5',
+                            'Sec-Fetch-Mode': 'navigate',
+                            'Sec-Fetch-Dest': 'document',
+                            'Sec-Fetch-Site': 'none',
+                            'Sec-Fetch-User': '?1',
+                            'Upgrade-Insecure-Requests': '1',
+                            'DNT': '1',
+                            'Sec-Fetch-User': '?1',
+                            'Sec-Ch-Ua-Mobile': '?1',
+                            'Sec-Ch-Ua-Platform': '"Android"',
+                        },
+                        'extractor_args': {
+                            'youtube': {
+                                'player_client': ['android', 'web'],
+                                'player_skip': ['js'],
+                                'innertube_client': 'android',
+                            }
+                        },
+                    },
+                    # Configuration 3: Web client with minimal headers
+                    {
+                        'format': 'bestaudio/best',
+                        'outtmpl': os.path.join("downloads", f"{vid_id}"),
+                        'postprocessors': [{
+                            'key': 'FFmpegExtractAudio',
+                            'preferredcodec': 'mp3',
+                            'preferredquality': '192',
+                        }],
+                        'quiet': True,
+                        'no_warnings': True,
+                        'retries': 5,
+                        'fragment_retries': 5,
+                        'skip_unavailable_fragments': True,
+                        'http_headers': {
+                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                            'Accept-Language': 'en-us,en;q=0.5',
+                        },
+                        'extractor_args': {
+                            'youtube': {
+                                'player_client': ['web'],
+                                'player_skip': ['js'],
+                            }
+                        },
+                    },
+                    # Configuration 4: Fallback with different format selection
+                    {
+                        'format': '140/171/251/bestaudio[ext=m4a]/bestaudio',
                         'outtmpl': os.path.join("downloads", f"{vid_id}"),
                         'postprocessors': [{
                             'key': 'FFmpegExtractAudio',
@@ -518,25 +580,27 @@ class YouTubeAPI:
                         'fragment_retries': 3,
                         'skip_unavailable_fragments': True,
                         'http_headers': {
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                            'Accept-Language': 'en-us,en;q=0.5',
-                        },
-                        'extractor_args': {
-                            'youtube': {
-                                'player_client': ['android', 'web'],
-                                'player_skip': ['js'],
-                            }
+                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0',
+                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                            'Accept-Language': 'en-US,en;q=0.5',
+                            'Accept-Encoding': 'gzip, deflate, br',
+                            'DNT': '1',
+                            'Connection': 'keep-alive',
+                            'Upgrade-Insecure-Requests': '1',
+                            'Sec-Fetch-Dest': 'document',
+                            'Sec-Fetch-Mode': 'navigate',
+                            'Sec-Fetch-Site': 'none',
+                            'Sec-Fetch-User': '?1',
                         },
                     },
-                    # Configuration 3: Basic configuration
+                    # Configuration 5: Last resort - any audio
                     {
-                        'format': 'bestaudio/best',
+                        'format': 'bestaudio',
                         'outtmpl': os.path.join("downloads", f"{vid_id}"),
                         'postprocessors': [{
                             'key': 'FFmpegExtractAudio',
                             'preferredcodec': 'mp3',
-                            'preferredquality': '192',
+                            'preferredquality': '128',
                         }],
                         'quiet': True,
                         'no_warnings': True,
@@ -571,11 +635,7 @@ class YouTubeAPI:
                         error_msg = str(e)
                         logger.warning(f"Download config {i+1} failed for {vid_id}: {error_msg}")
                         
-                        # If it's not a "page needs to be reloaded" error, don't retry
-                        if "page needs to be reloaded" not in error_msg and "Requested format is not available" not in error_msg:
-                            break
-                        
-                        # Continue to next configuration
+                        # Continue to next configuration for any error
                         continue
                 
                 # If all configurations failed
