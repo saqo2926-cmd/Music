@@ -11,8 +11,8 @@ API_HASH = getenv("API_HASH", "f745cdd5ddb46cf841d6990048f52935")
 
 BOT_TOKEN = getenv("BOT_TOKEN", "8568049660:AAHZl3Wg5b-MTXBjhQbsn9MrP9cCKbWjgDs")
 
-# Полный URI для подключения к MongoDB
-MONGO_DB_URI = "mongodb://mongo:mkMgrOSKhPDCaZVjSGlSWbolcENfIdeD@mongodb.railway.internal:27017/armedmusic?authSource=admin"
+# Полный URI для подключения к MongoDB (можно задать через переменную окружения MONGO_DB_URI)
+MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb://mongo:mkMgrOSKhPDCaZVjSGlSWbolcENfIdeD@mongodb.railway.internal:27017/armedmusic?authSource=admin")
 
 # Имя базы данных (для твоего бота)
 MONGO_DB_NAME = "armedmusic"
